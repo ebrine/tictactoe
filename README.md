@@ -1,2 +1,2 @@
-# sinatra-skeleton
-Skeleton for Sinatra apps
+# Tic Tac Toe
+
