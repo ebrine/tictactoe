@@ -92,6 +92,10 @@ describe "app controller" do
           get '/?board=oo+x++x+x'
           expect(last_response.body).to eq 'ooox  x x'
         end
+        it "returns board with o horizontal winning move complete" do
+          get '/?board=xx+oo++++'
+          expect(last_response.body).to eq 'xx ooo   '
+        end
         it "returns board with additional o" do
           get '/?board=x+xooxoxo'
           expect(last_response.body).to eq 'xoxooxoxo'
