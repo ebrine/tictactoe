@@ -6,6 +6,6 @@ get '/' do
   if board.valid_board? == false
     status 400
   else
-    # board.return_move
+    board.return_move
   end
 end
