@@ -35,7 +35,11 @@ describe "app controller" do
         get '/?board=xxx+o+o+o'
         expect(last_response.status).to eq 400
       end
-      it "returns status 400 for boards that are won vertially" do
+      it "returns status 400 for boards that are won horizontally" do
+        get '/?board=ooo+x+x+x'
+        expect(last_response.status).to eq 400
+      end
+      it "returns status 400 for boards that are won vertically" do
         get '/?board=xooxo+x++'
         expect(last_response.status).to eq 400
       end
@@ -46,7 +50,14 @@ describe "app controller" do
     end
 
     describe "valid boards" do
-
+      it "returns status 200 when it's plausibly o's turn on valid board" do
+        get '/?board=o++xx+oox'
+        expect(last_response.status).to eq 200
+      end
+      it "returns status 200 when it's plausibly o's turn on valid board" do
+        get '/?board=o++xx+o+x'
+        expect(last_response.status).to eq 200
+      end
     end
 
   end
