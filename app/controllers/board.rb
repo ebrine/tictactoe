@@ -66,10 +66,10 @@ class Board
     lines = [diagonals, @board_array, columns].flatten.each_slice(3).to_a
     found = []
     lines.each_with_index do |line, line_index|
-        if (line.count("x") == 2) && line.count(' ') == 1
+        if (line.count("o") == 2) && line.count(' ') == 1
           found  = [line_index, line.index(' ')]
           break
-        elsif (line.count("o") == 2) && line.count(' ') == 1
+        elsif (line.count("x") == 2) && line.count(' ') == 1
           found  = [line_index, line.index(' ')]
           break
         end
