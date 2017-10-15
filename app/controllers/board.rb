@@ -14,6 +14,19 @@ class Board
     board_array
   end
 
+  def return_move
+    return 'o        ' if empty_board?
+  end
+
+  def empty_board?
+    count_chars[2] == 9
+  end
+
+
+
+
+
+
   def valid_board?
     puts @board_string
     return false if @board_string.length != 9

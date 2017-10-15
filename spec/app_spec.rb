@@ -60,6 +60,13 @@ describe "app controller" do
       end
     end
 
+    describe "valid responses" do
+      it "returns board with corner move if empty board is given" do
+        get '/?board=+++++++++'
+        expect(last_response.body).to eq 'o        '
+      end
+    end
+
   end
 
 
