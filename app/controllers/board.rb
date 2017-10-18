@@ -19,11 +19,16 @@ class Board
     end
   end
 
+  def set_cell(row, col)
+    @board_array[row][col] = 'o'
+  end
+
   def fill_random_space
     corners = [[0,0], [0,2], [2,0], [2,2]]
     corners.each do |i|
       if @board_array[i[0]][i[1]] == ' '
-        @board_array[i[0]][i[1]] = 'o'
+        set_cell(i[0],i[1])
+        # @board_array[i[0]][i[1]] = 'o'
         @board_string = @board_array.flatten
         return @board_string
       end
@@ -94,7 +99,7 @@ class Board
       i = cell_index
       j = line_index - 5
     end
-    @board_array[i][j] = "o"
+    set_cell(i, j)
     @board_string = @board_array.flatten
   end
 
