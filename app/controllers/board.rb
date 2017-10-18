@@ -26,7 +26,7 @@ class Board
     indeces = corners.find { |i| @board_array[i[0]][i[1]] == ' ' }
     if indeces
       set_cell(indeces[0], indeces[1])
-      return @board_string = @board_array.join()
+      @board_string = @board_array.join()
     else
       @board_string =  @board_string.sub(' ', "o")
     end
@@ -47,9 +47,7 @@ class Board
   end
 
   def game_over?
-    return true if diagonal_win?
-    return true if horizontal_win?
-    return true if vertical_win?
+    return true if diagonal_win? || horizontal_win? || vertical_win?
   end
 
   def imminent_win
