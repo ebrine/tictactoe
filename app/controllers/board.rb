@@ -106,24 +106,19 @@ class Board
   end
 
   def diagonal_win?
-    diagonals.each do |diag|
-      return true if (diag.count('x') == 3 || diag.count('o') == 3)
-    end
-    false
+    direction_win?(diagonals)
   end
 
   def horizontal_win?
-    @board_array.each do |row|
-      return true if (row.count('x') == 3 || row.count('o') == 3)
-    end
-    false
+    direction_win?(@board_array)
   end
 
   def vertical_win?
-    columns.each do |col|
-      return true if (col.count('x') == 3 || col.count('o') == 3)
-    end
-    false
+    direction_win?(columns)
+  end
+
+  def direction_win?(lines)
+    lines.find { |line| line.count('x') == 3 || line.count('o') == 3}
   end
 
   def count_chars
