@@ -127,10 +127,7 @@ class Board
   end
 
   def count_chars
-    x = @board_string.count("x")
-    o = @board_string.count('o')
-    space = @board_string.count(" ")
-    [x, o, space]
+    [@board_string.count("x"), @board_string.count('o'), @board_string.count(" ")]
   end
 
 end
