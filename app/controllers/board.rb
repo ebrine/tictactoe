@@ -10,7 +10,6 @@ class Board
   end
 
   def return_move
-    return 'o        ' if empty_board?
     if imminent_win
       fill_line(imminent_win)
       return @board_string
