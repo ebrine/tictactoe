@@ -51,21 +51,19 @@ class Board
   end
 
   def imminent_win
+    return find_imminent_win('o') || find_imminent_win('x')
+  end
+
+  def find_imminent_win(player)
     lines = [diagonals, @board_array, columns].flatten.each_slice(3).to_a
-    found = []
-    lines.each_with_index do |line, line_index|
-        if (line.count("o") == 2) && line.count(' ') == 1
-          found  = [line_index, line.index(' ')]
-          return found
-        end
+    found_line = lines.find { |line| (line.count(player) == 2) && line.count(' ') == 1 }
+    if found_line
+      line_index = lines.index(found_line)
+      cell_index = found_line.index(' ')
+      [line_index, cell_index]
+    else
+      false
     end
-    lines.each_with_index do |line, line_index|
-        if (line.count("x") == 2) && line.count(' ') == 1
-          found  = [line_index, line.index(' ')]
-          return found
-        end
-    end
-    false
   end
 
   def fill_line(directions)
