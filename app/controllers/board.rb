@@ -23,13 +23,13 @@ class Board
 
   def fill_random_space
     corners = [[0,0], [0,2], [2,0], [2,2]]
-    corners.each do |i|
-      if @board_array[i[0]][i[1]] == ' '
-        set_cell(i[0],i[1])
-        return @board_string = @board_array.join()
-      end
+    indeces = corners.find { |i| @board_array[i[0]][i[1]] == ' ' }
+    if indeces
+      set_cell(indeces[0], indeces[1])
+      return @board_string = @board_array.join()
+    else
+      @board_string =  @board_string.sub(' ', "o")
     end
-    @board_string =  @board_string.sub(' ', "o")
   end
 
   def valid_board?
