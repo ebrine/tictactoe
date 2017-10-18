@@ -2,16 +2,11 @@
 class Board
   def initialize(board_string)
     @board_string = board_string
-    @board_array = create_array(board_string)
+    @board_array = create_array
   end
 
-  def create_array(board_string)
-    array = board_string.chars
-    board_array = []
-    board_array << array[0..2]
-    board_array << array[3..5]
-    board_array << array[6..8]
-    board_array
+  def create_array
+    @board_string.chars.each_slice(3).to_a
   end
 
   def return_move
