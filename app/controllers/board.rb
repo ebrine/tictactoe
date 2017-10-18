@@ -31,11 +31,6 @@ class Board
     @board_string =  @board_string.sub(' ', "o")
   end
 
-  def empty_board?
-    count_chars[2] == 9
-  end
-
-
   def valid_board?
     return false if @board_string.length != 9
     return false if @board_string.match(/[^xo\s]/)
