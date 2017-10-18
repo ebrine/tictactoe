@@ -11,11 +11,9 @@ class Board
 
   def return_move
     if imminent_win
-      fill_line(imminent_win)
-      return @board_string
+      return fill_line(imminent_win)
     else
-      fill_random_space
-      return @board_string
+      return fill_random_space
     end
   end
 
@@ -28,9 +26,7 @@ class Board
     corners.each do |i|
       if @board_array[i[0]][i[1]] == ' '
         set_cell(i[0],i[1])
-        # @board_array[i[0]][i[1]] = 'o'
-        @board_string = @board_array.flatten
-        return @board_string
+        return @board_string = @board_array.join()
       end
     end
     @board_string =  @board_string.sub(' ', "o")
@@ -100,7 +96,7 @@ class Board
       j = line_index - 5
     end
     set_cell(i, j)
-    @board_string = @board_array.flatten
+    @board_string = @board_array.join()
   end
 
   def diagonals
