@@ -2,45 +2,35 @@
 class Board
   def initialize(board_string)
     @board_string = board_string
-    @board_array = create_array(board_string)
+    @board_array = create_array
   end
 
-  def create_array(board_string)
-    array = board_string.chars
-    board_array = []
-    board_array << array[0..2]
-    board_array << array[3..5]
-    board_array << array[6..8]
-    board_array
+  def create_array
+    @board_string.chars.each_slice(3).to_a
   end
 
   def return_move
-    return 'o        ' if empty_board?
     if imminent_win
-      fill_line(imminent_win)
-      return @board_string
+      return fill_line(imminent_win)
     else
-      fill_random_space
-      return @board_string
+      return fill_random_space
     end
+  end
+
+  def set_cell(row, col)
+    @board_array[row][col] = 'o'
   end
 
   def fill_random_space
     corners = [[0,0], [0,2], [2,0], [2,2]]
-    corners.each do |i|
-      if @board_array[i[0]][i[1]] == ' '
-        @board_array[i[0]][i[1]] = 'o'
-        @board_string = @board_array.flatten
-        return @board_string
-      end
+    indeces = corners.find { |i| @board_array[i[0]][i[1]] == ' ' }
+    if indeces
+      set_cell(indeces[0], indeces[1])
+      @board_string = @board_array.join()
+    else
+      @board_string =  @board_string.sub(' ', "o")
     end
-    @board_string =  @board_string.sub(' ', "o")
   end
-
-  def empty_board?
-    count_chars[2] == 9
-  end
-
 
   def valid_board?
     return false if @board_string.length != 9
@@ -57,27 +47,23 @@ class Board
   end
 
   def game_over?
-    return true if diagonal_win?
-    return true if horizontal_win?
-    return true if vertical_win?
+    return true if diagonal_win? || horizontal_win? || vertical_win?
   end
 
   def imminent_win
+    return find_imminent_win('o') || find_imminent_win('x')
+  end
+
+  def find_imminent_win(player)
     lines = [diagonals, @board_array, columns].flatten.each_slice(3).to_a
-    found = []
-    lines.each_with_index do |line, line_index|
-        if (line.count("o") == 2) && line.count(' ') == 1
-          found  = [line_index, line.index(' ')]
-          return found
-        end
+    found_line = lines.find { |line| (line.count(player) == 2) && line.count(' ') == 1 }
+    if found_line
+      line_index = lines.index(found_line)
+      cell_index = found_line.index(' ')
+      [line_index, cell_index]
+    else
+      false
     end
-    lines.each_with_index do |line, line_index|
-        if (line.count("x") == 2) && line.count(' ') == 1
-          found  = [line_index, line.index(' ')]
-          return found
-        end
-    end
-    false
   end
 
   def fill_line(directions)
@@ -105,8 +91,8 @@ class Board
       i = cell_index
       j = line_index - 5
     end
-    @board_array[i][j] = "o"
-    @board_string = @board_array.flatten
+    set_cell(i, j)
+    @board_string = @board_array.join()
   end
 
   def diagonals
@@ -120,31 +106,23 @@ class Board
   end
 
   def diagonal_win?
-    diagonals.each do |diag|
-      return true if (diag.count('x') == 3 || diag.count('o') == 3)
-    end
-    false
+    direction_win?(diagonals)
   end
 
   def horizontal_win?
-    @board_array.each do |row|
-      return true if (row.count('x') == 3 || row.count('o') == 3)
-    end
-    false
+    direction_win?(@board_array)
   end
 
   def vertical_win?
-    columns.each do |col|
-      return true if (col.count('x') == 3 || col.count('o') == 3)
-    end
-    false
+    direction_win?(columns)
+  end
+
+  def direction_win?(lines)
+    lines.find { |line| line.count('x') == 3 || line.count('o') == 3}
   end
 
   def count_chars
-    x = @board_string.count("x")
-    o = @board_string.count('o')
-    space = @board_string.count(" ")
-    [x, o, space]
+    [@board_string.count("x"), @board_string.count('o'), @board_string.count(" ")]
   end
 
 end
