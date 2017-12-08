@@ -19,3 +19,12 @@ get '/' do
     return ''
   end
 end
+
+get '/winner' do
+  if params[:board]
+    board = Board.new(params[:board])
+    board.winner?
+  else
+    return ''
+  end
+end
