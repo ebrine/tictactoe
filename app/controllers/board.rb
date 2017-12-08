@@ -50,6 +50,7 @@ class Board
     return true if diagonal_win? || horizontal_win? || vertical_win?
   end
 
+
   def imminent_win
     return find_imminent_win('o') || find_imminent_win('x')
   end
@@ -119,6 +120,32 @@ class Board
 
   def direction_win?(lines)
     lines.find { |line| line.count('x') == 3 || line.count('o') == 3}
+  end
+
+  def o_win?(lines)
+    lines.find { |line| line.count('o') == 3}
+  end
+
+  def x_win?(lines)
+    lines.find { |line| line.count('x') == 3}
+  end
+
+  def x_winner?
+      x_win?(diagonals)
+      x_win?(@board_array)
+      x_win?(columns)
+  end
+
+  def o_winner?
+    o_win?(diagonals)
+    o_win?(@board_array)
+    o_win?(columns)
+  end
+
+  def winner?
+    return "x" if x_winner?
+    return 'o' if o_winner?
+    return false
   end
 
   def count_chars

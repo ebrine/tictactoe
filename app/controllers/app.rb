@@ -10,11 +10,22 @@ require_relative 'board'
 get '/' do
   if params[:board]
     board = Board.new(params[:board])
-    if board.valid_board? == false
+    if board.winner?
+      return board.winner?
+    elsif board.valid_board? == false
       status 400
     else
       board.return_move
     end
+  else
+    return ''
+  end
+end
+
+get '/winner' do
+  if params[:board]
+    board = Board.new(params[:board])
+    board.winner?
   else
     return ''
   end
