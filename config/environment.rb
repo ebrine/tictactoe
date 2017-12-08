@@ -17,9 +17,6 @@ require 'sinatra'
 
 require 'sinatra/cross_origin'
 
-configure do
-  enable :cross_origin
-end
 require "sinatra/reloader" if development?
 
 require 'erb'
@@ -30,6 +27,7 @@ APP_ROOT = Pathname.new(File.expand_path('../../', __FILE__))
 APP_NAME = APP_ROOT.basename.to_s
 
 configure do
+  enable :cross_origin
   # By default, Sinatra assumes that the root is the file that calls the configure block.
   # Since this is not the case for us, we set it manually.
   set :root, APP_ROOT.to_path
