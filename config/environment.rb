@@ -14,6 +14,12 @@ require 'pg'
 require 'active_record'
 require 'logger'
 require 'sinatra'
+
+require 'sinatra/cross_origin'
+
+configure do
+  enable :cross_origin
+end
 require "sinatra/reloader" if development?
 
 require 'erb'
