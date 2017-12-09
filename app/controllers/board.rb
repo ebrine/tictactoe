@@ -131,15 +131,11 @@ class Board
   end
 
   def x_winner?
-      x_win?(diagonals)
-      x_win?(@board_array)
-      x_win?(columns)
+      x_win?(diagonals) || x_win?(@board_array) || x_win?(columns)
   end
 
   def o_winner?
-    o_win?(diagonals)
-    o_win?(@board_array)
-    o_win?(columns)
+    o_win?(diagonals) || o_win?(@board_array) || o_win?(columns)
   end
 
   def winner?
